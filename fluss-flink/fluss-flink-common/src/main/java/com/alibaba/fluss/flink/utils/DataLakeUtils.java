@@ -55,11 +55,6 @@ public class DataLakeUtils {
     }
 
     public static Optional<DataLakeFormat> getDatalakeFormat(ReadableConfig tableOptions) {
-        Optional<DataLakeFormat> tableOptional =
-                tableOptions.getOptional(toFlinkOption(TABLE_DATALAKE_FORMAT));
-        if (tableOptional.isPresent()) {
-            return tableOptional;
-        }
-        return Optional.empty();
+        return tableOptions.getOptional(toFlinkOption(TABLE_DATALAKE_FORMAT));
     }
 }

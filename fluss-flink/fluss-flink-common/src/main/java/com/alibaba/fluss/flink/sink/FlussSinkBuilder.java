@@ -28,6 +28,7 @@ import com.alibaba.fluss.flink.sink.writer.FlinkSinkWriter;
 import com.alibaba.fluss.metadata.DataLakeFormat;
 import com.alibaba.fluss.metadata.TableInfo;
 import com.alibaba.fluss.metadata.TablePath;
+import com.alibaba.fluss.utils.StringUtils;
 
 import org.apache.flink.table.types.logical.RowType;
 import org.slf4j.Logger;
@@ -186,11 +187,11 @@ public class FlussSinkBuilder<InputT> {
     private void validateConfiguration() {
         checkNotNull(bootstrapServers, "BootstrapServers is required but not provided.");
         checkNotNull(serializationSchema, "SerializationSchema is required but not provided.");
-
-        checkNotNull(database, "Database is required but not provided.");
-        checkArgument(!database.isEmpty(), "Database cannot be empty.");
-
-        checkNotNull(tableName, "Table name is required but not provided.");
-        checkArgument(!tableName.isEmpty(), "Table name cannot be empty.");
+        checkArgument(
+                !StringUtils.isNullOrWhitespaceOnly(database),
+                "Database is required, can't be null or empty.");
+        checkArgument(
+                !StringUtils.isNullOrWhitespaceOnly(tableName),
+                "Table name is required, can't be null or empty.");
     }
 }
